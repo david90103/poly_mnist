@@ -207,6 +207,50 @@ async function mnist() {
   test();
 }
 
-// learnCoefficients();
 
+//---------------------------------------- my model -----------------------------------
+// Build and compile model.
+const mymodel = tf.sequential();
+mymodel.add(tf.layers.dense({
+  units: 1,
+  inputShape: [1]
+}));
+mymodel.compile({
+  optimizer: 'sgd',
+  loss: 'meanSquaredError'
+});
+
+// Generate some synthetic data for training.
+const xs = tf.tensor2d([
+  [1],
+  [2],
+  [3],
+  [4]
+], [4, 1]);
+const ys = tf.tensor2d([
+  [1],
+  [3],
+  [5],
+  [7]
+], [4, 1]);
+
+// Train model with fit().
+mymodel.fit(xs, ys, {
+  epochs: 100
+});
+
+let mymodelbtn = document.getElementById('myModelStart');
+mymodelbtn.addEventListener('click', () => {
+  data = document.getElementById('inputdata').value;
+  // Run inference with predict().
+  let result = mymodel.predict(tf.tensor2d([
+    [parseInt(data)]
+  ], [1, 1]));
+  let answer = document.getElementById('mymodelanswer');
+  answer.innerHTML = "Result is : " + result;
+
+});
+
+
+// learnCoefficients();
 mnist();
