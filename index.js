@@ -58,9 +58,20 @@ const d = tf.variable(tf.scalar(Math.random()));
 
 // Step 2. Create an optimizer, we will use this later. You can play
 // with some of these values to see how the model performs.
-const numIterations = 75;
-const learningRate = 0.5;
+let numIterations = 75;
+let learningRate = 0.5;
+
 const optimizer = tf.train.sgd(learningRate);
+
+// add start button listener
+let startbtn = document.getElementById('start');
+startbtn.addEventListener('click', () => {
+  numIterations = document.getElementById('iteration').value;
+  learningRate = document.getElementById('learnrate').value;
+  console.log(numIterations);
+  console.log(learningRate);
+  learnCoefficients();
+});
 
 // Step 3. Write our training process functions.
 
@@ -196,6 +207,6 @@ async function mnist() {
   test();
 }
 
-learnCoefficients();
+// learnCoefficients();
 
 mnist();
