@@ -241,10 +241,10 @@ mymodel.fit(xs, ys, {
 
 let mymodelbtn = document.getElementById('myModelStart');
 mymodelbtn.addEventListener('click', () => {
-  data = document.getElementById('inputdata').value;
+  let mydata = document.getElementById('inputdata').value;
   // Run inference with predict().
   let result = mymodel.predict(tf.tensor2d([
-    [parseInt(data)]
+    [parseInt(mydata)]
   ], [1, 1]));
   let answer = document.getElementById('mymodelanswer');
   answer.innerHTML = "Result is : " + result;
